@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model links="?" version="1.0.0">
+	<framework name="QP" />
+	<package name="DefaultPackage" stereotype="0x00">
+		<class name="Table">
+			<statechart properties="0x00">
+				<state_diagram size="800,600" />
+				<initial target="../serving">
+					<initial_glyph color="0" conn="0,0,0,0">
+						<action />
+					</initial_glyph>
+				</initial>
+				<state name="active">
+					<state_glyph color="0" node="0,0,0,0" />
+					<tran trig="TEST" target="../active">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+					<tran trig="EAT" target="../active">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+					<state name="serving">
+						<entry brief="" />
+						<state_glyph color="0" node="0,0,0,0" />
+						<tran trig="HUNGARY">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+							<choice target="../active">
+								<guard brief="bothfree">bothfree</guard>
+								<choice_glyph color="0" conn="0,0,0,0">
+									<action />
+								</choice_glyph>
+							</choice>
+							<choice target="../active">
+								<guard brief="ELSE">ELSE</guard>
+								<choice_glyph color="0" conn="0,0,0,0">
+									<action />
+								</choice_glyph>
+							</choice>
+						</tran>
+						<tran trig="DONE" target="../active">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+						<tran trig="EAT" target="../active">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+						<tran trig="PAUSE" target="../paused">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+					</state>
+					<state name="paused">
+						<entry brief="" />
+						<exit brief="" />
+						<state_glyph color="0" node="0,0,0,0" />
+						<tran trig="SERVE" target="../serving">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+						<tran trig="HUNGARY" target="../paused">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+						<tran trig="DONE" target="../paused">
+							<tran_glyph color="0" conn="0,0,0,0">
+								<action />
+							</tran_glyph>
+						</tran>
+					</state>
+				</state>
+			</statechart>
+		</class>
+		<class name="Philo">
+			<statechart properties="0x00">
+				<state_diagram size="800,600" />
+				<initial target="../thinking">
+					<initial_glyph color="0" conn="0,0,0,0">
+						<action />
+					</initial_glyph>
+				</initial>
+				<state name="thinking">
+					<entry brief="" />
+					<exit brief="" />
+					<state_glyph color="0" node="0,0,0,0" />
+					<initial target="">
+						<initial_glyph color="0" conn="0,0,0,0">
+							<action />
+						</initial_glyph>
+					</initial>
+					<tran trig="TIMEOUT" target="../hungary">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+					<tran trig="EAT,DONE" target="../thinking">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+				</state>
+				<state name="hungary">
+					<entry brief="" />
+					<state_glyph color="0" node="0,0,0,0" />
+					<tran trig="EAT">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+						<choice target="../eating">
+							<guard brief="Q_EVT_CAST(TableEvt)-&gt;philoNum == PHILO_ID(me)">Q_EVT_CAST(TableEvt)-&gt;philoNum == PHILO_ID(me)</guard>
+							<choice_glyph color="0" conn="0,0,0,0">
+								<action />
+							</choice_glyph>
+						</choice>
+						<choice target="../hungary">
+							<guard brief="ELSE">ELSE</guard>
+							<choice_glyph color="0" conn="0,0,0,0">
+								<action />
+							</choice_glyph>
+						</choice>
+					</tran>
+					<tran trig="DONE" target="../hungary">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+				</state>
+				<state name="eating">
+					<entry brief="BSP_displayPaused(1U);">BSP_displayPaused(1U);</entry>
+					<exit brief="BSP_displayPaused(0U);">BSP_displayPaused(0U);</exit>
+					<state_glyph color="0" node="0,0,0,0" />
+					<tran trig="TIMEOUT" target="../thinking">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+					<tran trig="EAT,DONE" target="../eating">
+						<tran_glyph color="0" conn="0,0,0,0">
+							<action />
+						</tran_glyph>
+					</tran>
+				</state>
+			</statechart>
+		</class>
+	</package>
+</model>
